@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFA game</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="logo-main"><img src="media/logo.png" alt=""></div>
+  <div class="logo-easy"><img src="media/easy.png" alt=""></div>
+  <p class="score">Score: <span class="inner"></span></p>
+    <div id="game-container" style="display: flex; justify-content: center; align-items: flex-start; gap: 40px;">
+
+        <!-- Left side: 1 Factor -->
+        <div class="side-column">
+          <span >☝️<br> 1 Factor</span>
+          <div class="drop-column" id="one-factor"></div>
+        </div>
+        
+        <!-- Middle: Card Display -->
+        <div id="middle-area-container">
+          <div id="card-area"></div>
+          <div id="middle-area">
+            <button onclick="handleDropManual(1)">◀️ <br> 1 Factor</button>
+            <button onclick="handleDropManual(2)">▶️ <br>2 Factors</button>
+          </div>
+        </div>
+      
+        <!-- Right side: 2 Factors -->
+        <div class="side-column">
+          <span>✌️<br> 2 Factors</span>
+          <div class="drop-column" id="two-factors"></div>
+        </div>
+      
+      </div>
+      <audio src="media/yes.mp3" id="yes" preload="auto"></audio>
+      <audio src="media/no.mp3" id="no" preload="auto"></audio>
+      <audio src="media/win.wav" id="win" preload="auto"></audio>
+      <div class="banner good"><img src="media/zizo1.gif" alt=""></div>
+      <div class="banner bad"><img src="media/issawy-1.gif" alt=""></div>
+      <div class="banner win"><img src="media/win.png" alt=""></div>
+      <script src="main.js"></script>
+</body>
+</html>

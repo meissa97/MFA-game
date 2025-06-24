@@ -6,19 +6,27 @@ let username = document.querySelector('.username .inner')
 let leftButton = document.querySelector('.left-button')
 let rightButton = document.querySelector('.right-button')
 let restartButton = document.querySelector('.restart')
-let user = document.querySelector('.overlay .user input')
+let user = document.querySelector('.overlay .user #un')
+let staff = document.querySelector('.overlay .staff-id #staff')
 let overlay = document.querySelector('.overlay')
 let startButton = document.querySelector('.start')
 startButton.onclick = function (){
   if (user.value == null || user.value == "") {
     alert("Please enter your username!");
   } else{
-    username.innerHTML = user.value
-    username.style.textTransform = "capitalize"
-    overlay.style.display = 'none'
-    document.getElementById('start').play()
+    if (staff.value == null || staff.value == "") {
+          alert("Please enter your staff ID!");
+    }else{
+      username.innerHTML = user.value
+      username.style.textTransform = "capitalize"
+      overlay.style.display = 'none'
+      document.getElementById('start').play()
+      // Fetch hits here
+        logStartClick(user.value.trim(), staff.value.trim())
+    }
   }
 }
+
 restartButton.onclick = function(){
   window.location.reload()
 }
@@ -66,7 +74,7 @@ const cases = [
   
     if (currentIndex >= cases.length) {
       console.log("📤 Sending to Google Sheet...");
-      sendToSheet(user.value.trim(), rightCount, wrongCount);
+      sendToSheet(user.value,staff.value, rightCount, wrongCount);
       cardArea.innerHTML = `<div style="font-size: 24px; color: #ED1C24;font-weight: bold;">👏 Bravo, ${user.value.toUpperCase()}👏 <br>
       You have finished the game <br> with score: ${rightCount} <br> and only ${wrongCount} mistakes 💪</div>`;
       leftButton.style.display = "none";
@@ -77,7 +85,6 @@ const cases = [
         winBanner.classList.add("visible");
         setTimeout(() => {
           winBanner.classList.remove("visible");
-          // window.location.reload()
         }, 3000);
     }, 1000);
       return;
@@ -169,21 +176,41 @@ const cases = [
   setupDropZones();
   showNextCard();
 
- function sendToSheet(username, score, mistakes) {
-  fetch("https://v1.nocodeapi.com/meissa9701/google_sheets/XSNAZbJuASWPKgsu?tabId=data", {
+
+  //Data fetching code
+
+function sendToSheet(username, staffId, score, mistakes) {
+  fetch("https://api.sheetbest.com/sheets/4571d8fb-b86b-4caf-843d-2931950ec2b9", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify([
-      [username.trim(), new Date().toLocaleString(), mistakes, score]
-    ])
+    body: JSON.stringify({
+      "Username": username,
+      "Staff ID": staffId,
+      "Score": score,
+      "Mistakes": mistakes,
+      "Date": new Date().toLocaleString()
+    })
   })
   .then(res => res.json())
-  .then(data => {
-    console.log("✅ Data sent to sheet:", data);
+  .then(data => console.log("✅ Sent to Sheet.best:", data))
+  .catch(err => console.error("❌ Error sending to Sheet.best:", err));
+}
+
+function logStartClick(username, staffId) {
+  fetch("https://api.sheetbest.com/sheets/c3a1e689-f058-4b01-a220-7f78902649ea", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "Username": username,
+      "Staff ID": staffId,
+      "Start Time": new Date().toLocaleString()
+    })
   })
-  .catch(err => {
-    console.error("❌ Error sending to sheet:", err);
-  });
+  .then(res => res.json())
+  .then(data => console.log("✅ Start logged:", data))
+  .catch(err => console.error("❌ Error logging start:", err));
 }

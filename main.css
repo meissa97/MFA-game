@@ -169,19 +169,22 @@ p{
   height: 90%;
   z-index: 2;
   background-color:#ed1c23eb;
-  .user{
+  .user-data{
     position: absolute;
     left: 50%;
     top: 40%;
     text-align: center;
     transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
     label{
       font-size: 40px;
       font-weight: 500;
       color: var(--bg);
     }
     input{
-      width: 500px;
+            width: 400px;
             height: 70px;
             border: none;
             border-radius: 10px;
@@ -189,6 +192,9 @@ p{
             font-size: 35px;
             text-transform:uppercase;
             text-align: center;
+    }
+    #staff{
+      width: 200px;
     }
   }
   .start{

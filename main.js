@@ -170,7 +170,7 @@ const cases = [
   showNextCard();
 
  function sendToSheet(username, score, mistakes) {
-  fetch("https://v1.nocodeapi.com/meissa9701/google_sheets/mMMMRkorSEFQUMii?tabId=mfa", {
+  fetch("https://v1.nocodeapi.com/meissa9701/google_sheets/XSNAZbJuASWPKgsu?tabId=data", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

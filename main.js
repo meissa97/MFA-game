@@ -1,5 +1,30 @@
 let wrongCount = 0;
+let rightCount = 0;
 let score = document.querySelector('.score .inner')
+let mistakes = document.querySelector('.mistakes .inner')
+let username = document.querySelector('.username .inner')
+let leftButton = document.querySelector('.left-button')
+let rightButton = document.querySelector('.right-button')
+let restartButton = document.querySelector('.restart')
+let user = document.querySelector('.overlay .user input')
+let overlay = document.querySelector('.overlay')
+let startButton = document.querySelector('.start')
+startButton.onclick = function (){
+  if (user.value == null || user.value == "") {
+    alert("Please enter your username!");
+    username.innerHTML = "Unknown"
+  } else{
+    username.innerHTML = user.value
+    username.style.textTransform = "capitalize"
+    overlay.style.display = 'none'
+    document.getElementById('start').play()
+  }
+}
+// if(username.innerHTML = ""){
+//   username = ""
+// }
+score.innerHTML = rightCount
+mistakes.innerHTML = wrongCount
 function shuffleArray(array) {
   
   for (let i = array.length - 1; i > 0; i--) {
@@ -41,12 +66,19 @@ const cases = [
     cardArea.innerHTML = "";
   
     if (currentIndex >= cases.length) {
-      cardArea.innerHTML = `<p style="font-size: 24px; color: #ED1C24;font-weight: bold;">👏 Game Over! 👏 <br>
-      You have made only ${wrongCount} mistakes 👏</p>`;
+      cardArea.innerHTML = `<div style="font-size: 24px; color: #ED1C24;font-weight: bold;">👏 Bravo, ${user.value.toUpperCase()}👏 <br>
+      You have finished the game <br> with score: ${rightCount} <br> and only ${wrongCount} mistakes 💪</div>`;
+      leftButton.style.display = "none";
+      rightButton.style.display = "none";
+      restartButton.style.display = "block"
       setTimeout(() => {
         document.getElementById('win').play()
         winBanner.classList.add("visible");
-    }, 1500);
+        setTimeout(() => {
+          winBanner.classList.remove("visible");
+          // window.location.reload()
+        }, 3000);
+    }, 1000);
       return;
     }
   
@@ -90,7 +122,7 @@ const cases = [
   }
   
   function checkAnswer(expectedFactor, droppedOn) {
-    const cardArea = document.getElementById("card-area");
+    // const cardArea = document.getElementById("card-area");
     const currentCase = cases[currentIndex];
   
     const card = document.createElement("div");
@@ -106,10 +138,12 @@ const cases = [
       correctAnswer()
       currentIndex++;
       showNextCard();
+      rightCount++;
+      score.innerHTML = rightCount
     } else {
       wrongAnswer()
       wrongCount++;
-      score.innerHTML = wrongCount
+      mistakes.innerHTML = wrongCount
     }
 
   }

@@ -18,7 +18,7 @@ body {
   color: var(--black);
 }
 
-span{
+.col-header{
   text-align: center;
   font-weight: bold;
   font-size: 30px;
@@ -75,12 +75,34 @@ button{
   padding: 13px;
   font-weight: bold;
 }
+.restart{
+  display: none;
+  margin-top: 50px;
+  padding-bottom: 20px;
+  img{
+    animation: spin 2s ease-in-out infinite;
+    width: 100px;
+    margin: 10px;
+  }
+}
 .logo-main{
   max-width: 120px;
   margin: auto;
+  position: relative;
   img{
     max-width: 100%;
   }
+  a{
+    text-decoration: none;
+    text-wrap: nowrap;
+    text-align: center;
+    color: var(--red);
+    font-size: large;
+    position: absolute;
+    bottom: -30px;
+    left: -100px;
+    font-weight: 500;
+    }
 }
 .logo-easy{
   max-width: 100px;
@@ -98,7 +120,7 @@ button{
   top: 60%;
   width: 300px;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   z-index: -1;
   img{
     max-width: 100%;
@@ -116,9 +138,8 @@ button{
   opacity: 1;
   z-index: 20;
 }
-.score{
+p{
   position: absolute;
-  top: 10px;
   left: 20px;
   font-weight: bold;
   color: var(--red);
@@ -126,11 +147,76 @@ button{
   span{
     display: inline;
     font-size: 20px;
+    color: var(--black);
+
   }
 }
-
+.username{
+  top: 10px;
+}
+.mistakes{
+  top: 70px;
+}
+.score{
+  top: 40px;
+}
+.overlay{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  z-index: 2;
+  background-color:#ed1c23eb;
+  .user{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    label{
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--bg);
+    }
+    input{
+      width: 500px;
+            height: 70px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 35px;
+            text-transform:uppercase;
+            text-align: center;
+    }
+  }
+  .start{
+      position: absolute;
+      left: 50%;
+      top: 70%;
+      transform: translate(-50%, -50%);
+      color: var(--black);
+      font-weight: bold;
+      background-color: white;
+      padding: 15px 25px;
+      font-size: 30px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      
+  }
+}
 @keyframes shake {
 	0%, 100% {transform: translateX(0);}
 	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
 	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(-360deg);
+  }
 }

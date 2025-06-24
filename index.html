@@ -10,14 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="logo-main"><img src="media/logo.png" alt=""></div>
+  <div class="logo-main"><img src="media/logo.png" alt="">   <a href="#" class="zizo-video">👉 What is MFA (1 or 2 factors)? 👈</a></div>
   <div class="logo-easy"><img src="media/easy.png" alt=""></div>
-  <p class="score">Score: <span class="inner"></span></p>
+  <p class="username">Usename: <span class="inner"></span></p>
+  <p class="score">Score: <span class="inner"> </span></p>
+  <p class="mistakes">Mistakes: <span class="inner"></span></p>
     <div id="game-container" style="display: flex; justify-content: center; align-items: flex-start; gap: 40px;">
 
         <!-- Left side: 1 Factor -->
         <div class="side-column">
-          <span >☝️<br> 1 Factor</span>
+          <span class="col-header">☝️<br> 1 Factor</span>
           <div class="drop-column" id="one-factor"></div>
         </div>
         
@@ -25,21 +27,31 @@
         <div id="middle-area-container">
           <div id="card-area"></div>
           <div id="middle-area">
-            <button onclick="handleDropManual(1)">◀️ <br> 1 Factor</button>
-            <button onclick="handleDropManual(2)">▶️ <br>2 Factors</button>
+            <button class="left-button" onclick="handleDropManual(1)">◀️ <br> 1 Factor</button>
+            <button class="right-button" onclick="handleDropManual(2)">▶️ <br>2 Factors</button>
+            <button class="restart"><img src="media/reset.jpg" alt=""> <br> Start again?</button>
           </div>
         </div>
       
         <!-- Right side: 2 Factors -->
         <div class="side-column">
-          <span>✌️<br> 2 Factors</span>
+          <span class="col-header">✌️<br> 2 Factors</span>
           <div class="drop-column" id="two-factors"></div>
         </div>
       
       </div>
+      <div class="overlay">
+        <div class="user">
+          <label for="un">Please enter your username:</label>
+          <br>
+          <input id="un" type="text" >
+        </div>
+        <span class="start">Start game</span>
+      </div>
       <audio src="media/yes.mp3" id="yes" preload="auto"></audio>
       <audio src="media/no.mp3" id="no" preload="auto"></audio>
       <audio src="media/win.wav" id="win" preload="auto"></audio>
+      <audio src="media/start.wav" id="start" preload="auto"></audio>
       <div class="banner good"><img src="media/zizo1.gif" alt=""></div>
       <div class="banner bad"><img src="media/issawy-1.gif" alt=""></div>
       <div class="banner win"><img src="media/win.png" alt=""></div>

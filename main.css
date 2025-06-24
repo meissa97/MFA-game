@@ -75,14 +75,22 @@ button{
   padding: 13px;
   font-weight: bold;
 }
-.restart{
+.restart, 
+.survey{
   display: none;
-  margin-top: 50px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
+    font-size: 18px;
   img{
-    animation: spin 2s ease-in-out infinite;
-    width: 100px;
+    width:50px;
     margin: 10px;
+  }
+  a{
+    color: var(--red);
+    text-decoration: none;
+    font-style: italic;
+  }
+  .reset{
+    animation: spin 2s ease-in-out infinite;
   }
 }
 .logo-main{
@@ -99,8 +107,8 @@ button{
     color: var(--red);
     font-size: large;
     position: absolute;
-    bottom: -30px;
-    left: -100px;
+    bottom: -50px;
+    left: -90px;
     font-weight: 500;
     }
 }
@@ -127,9 +135,9 @@ button{
   }
 }
 .win{
-  width: 1000px;
+  width: 400px;
+  top: 90%;
   img{
-
     animation: shake 2s ease infinite;
   }
 
@@ -161,6 +169,7 @@ p{
   top: 40px;
 }
 .overlay{
+  display: none;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -224,5 +233,52 @@ p{
   }
   to {
       transform:rotate(-360deg);
+  }
+}
+
+ /* balloons */
+.balloons-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -60px;
+  width: 40px;
+  height: 55px;
+  background-color: red;
+  border-radius: 50% 50% 50% 50%;
+  box-shadow: inset -5px -10px 0 rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+  animation: floatUp var(--duration, 4s) ease-in forwards;
+  transform: translateX(0) rotate(0deg);
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: #444;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--x-move, 0px)) translateY(-120vh) rotate(var(--rotation, 20deg));
+    opacity: 0;
   }
 }

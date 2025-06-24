@@ -12,7 +12,6 @@ let startButton = document.querySelector('.start')
 startButton.onclick = function (){
   if (user.value == null || user.value == "") {
     alert("Please enter your username!");
-    username.innerHTML = "Unknown"
   } else{
     username.innerHTML = user.value
     username.style.textTransform = "capitalize"
@@ -20,9 +19,9 @@ startButton.onclick = function (){
     document.getElementById('start').play()
   }
 }
-// if(username.innerHTML = ""){
-//   username = ""
-// }
+restartButton.onclick = function(){
+  window.location.reload()
+}
 score.innerHTML = rightCount
 mistakes.innerHTML = wrongCount
 function shuffleArray(array) {
@@ -66,6 +65,7 @@ const cases = [
     cardArea.innerHTML = "";
   
     if (currentIndex >= cases.length) {
+      sendToSheet(user.value.trim(), rightCount, wrongCount);
       cardArea.innerHTML = `<div style="font-size: 24px; color: #ED1C24;font-weight: bold;">👏 Bravo, ${user.value.toUpperCase()}👏 <br>
       You have finished the game <br> with score: ${rightCount} <br> and only ${wrongCount} mistakes 💪</div>`;
       leftButton.style.display = "none";
@@ -167,3 +167,25 @@ const cases = [
   
   setupDropZones();
   showNextCard();
+
+  function sendToSheet(username, score, mistakes) {
+    fetch("https://script.google.com/macros/s/AKfycbzAMwaivmfqmKKNdiOHNpNDD04faRQSyg9sh7zXsjfyAsb0Ni1JwR9zUhhQuZQP-t3yLA/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username.trim(),
+        score: score,
+        mistakes: mistakes
+      })
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log("Data sent successfully:", data);
+    })
+    .catch(error => {
+      console.error("Error sending data:", error);
+    });
+  }
+  

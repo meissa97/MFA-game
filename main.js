@@ -108,7 +108,10 @@ setTimeout(() => {
 releaseBalloons(30); 
         document.getElementById('win').play()
         winBanner.classList.add("visible");
-    }, 1000);
+        setTimeout(() => {
+      winBanner.classList.remove("visible");
+    }, 3000);
+      }, 1000);
       return;
     }
   

@@ -65,6 +65,7 @@ const cases = [
     cardArea.innerHTML = "";
   
     if (currentIndex >= cases.length) {
+      console.log("📤 Sending to Google Sheet...");
       sendToSheet(user.value.trim(), rightCount, wrongCount);
       cardArea.innerHTML = `<div style="font-size: 24px; color: #ED1C24;font-weight: bold;">👏 Bravo, ${user.value.toUpperCase()}👏 <br>
       You have finished the game <br> with score: ${rightCount} <br> and only ${wrongCount} mistakes 💪</div>`;
@@ -168,24 +169,21 @@ const cases = [
   setupDropZones();
   showNextCard();
 
-  function sendToSheet(username, score, mistakes) {
-    fetch("https://script.google.com/macros/s/AKfycbzAMwaivmfqmKKNdiOHNpNDD04faRQSyg9sh7zXsjfyAsb0Ni1JwR9zUhhQuZQP-t3yLA/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: username.trim(),
-        score: score,
-        mistakes: mistakes
-      })
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log("Data sent successfully:", data);
-    })
-    .catch(error => {
-      console.error("Error sending data:", error);
-    });
-  }
-  
+ function sendToSheet(username, score, mistakes) {
+  fetch("https://v1.nocodeapi.com/meissa9701/google_sheets/mMMMRkorSEFQUMii?tabId=mfa", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify([
+      [username.trim(), new Date().toLocaleString(), mistakes, score]
+    ])
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("✅ Data sent to sheet:", data);
+  })
+  .catch(err => {
+    console.error("❌ Error sending to sheet:", err);
+  });
+}
